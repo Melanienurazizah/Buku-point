@@ -14,4 +14,4 @@
         background-size: 8rem;
         background-position: 3rem;
    }
-</style>
+</style>  

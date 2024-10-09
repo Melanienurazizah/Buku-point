@@ -2,18 +2,31 @@
     <div class="container-fluid">
        <div class="row justify-content-around align-items-center" style="height: 80vh;">
            <div class="col-sm-4">
-               <div class="card bg1">
+            <NuxtLink to="point">
+               <div class="card shadow bg1">
                    <div class="card-body">
                        <h5 class="card-title">MEMBERIKAN POINT </h5>
                    </div>
                </div>
+            </NuxtLink>   
            </div>
            <div class="col-sm-4">
-               <div class="card bg2">
+            <NuxtLink to="login">
+               <div class="card bg2 shadow">
                    <div class="card-body">
                        <h5 class="card-title" style="opacity: none;">MELIHAT RIWAYAT POINT</h5>
                    </div>
                </div>
+            </NuxtLink>
+           </div>
+           <div class="col-sm-4">
+            <NuxtLink to="/pelanggaran">
+               <div class="card bg2 shadow">
+                   <div class="card-body">
+                       <h5 class="card-title" style="opacity: none;">MELIHAT PELANGGARAN</h5>
+                   </div>
+               </div>
+            </NuxtLink>
            </div>
        </div>
     </div>   
