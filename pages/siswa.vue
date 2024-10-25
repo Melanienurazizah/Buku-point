@@ -18,28 +18,30 @@
                 </div>
             </div>
         </div>
-    <div class="row justify-content-center">
-        <div class="col-11">
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th class="text-center">NAMA POINT YANG DILANGGAR</th>
-                        <th class="text-center">JUMLAH POINT</th>
-                    </tr>
-                    <tr>
-                        <td>tidak memakai dasi</td>
-                        <td>5</td>
-                    </tr> 
-                </thead>
-            </table>
+        <div class="row justify-content-center">
+            <div class="col-11">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center">NAMA POINT YANG DILANGGAR</th>
+                            <th class="text-center">JUMLAH POINT</th>
+                        </tr>
+                        <tr>
+                            <td>tidak memakai dasi</td>
+                            <td>5</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="col-2 ms-auto mb-3">
+                <NuxtLink to="/">
+                    <button type="submit" class=" btn btn-light btn-lg rounded-5 px-5"
+                        style=" background-color: #167BF1;">KEMBALI</button>
+                </NuxtLink>
+            </div>
         </div>
-        <div class="col-2 ms-auto mb-3">
-            <NuxtLink to="//">
-            <button type="submit" class=" btn btn-light btn-lg rounded-5 px-5" style=" background-color: #167BF1;">KEMBALI</button>
-            </NuxtLink>
-        </div> 
-    </div>
 
     </div>
 </template>
+
 <style></style>
