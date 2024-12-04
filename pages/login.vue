@@ -9,9 +9,11 @@
           <input v-model="password" type="password" class="rounded-5 mb-5 ps-3" placeholder="Password"
             style="width:28rem; height:3rem;background-color: #FFFFFF; ">
           <div class="row justify-content-center">
-            <button @click="handleLogin" type="button" class="btn rounded-5"
-              style="width:8rem; background-color: #FFFFFF;">Login</button>
+            <!-- <button @click="handleLogin" type="button" class="btn rounded-5"
+              style="width:8rem; background-color: #FFFFFF;">Login</button> -->
           </div>
+          <i @click="togglepasswordvisibility" :class="ispasswordvisible ? 'bi bi-eye-fill' : 'bi  bi-eye-slash-fill'"
+            class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor: pointer;"></i>
         </form>
       </div>
     </div>
@@ -20,22 +22,34 @@
 </template>
 
 <script setup>
-definePageMeta({
-  layout: '',
-
-})
 const client = useSupabaseClient()
 const email = ref("");
 const password = ref("");
+const ispasswordvisible = ref(false)
+const errorMessage = ref("")
 
 async function handleLogin() {
-  console.log(email.value)
-  console.log(password.value)
-  const { data, error } = await client.auth.signInWithPassword({
-    email: email.value,
-    password: password.value
-  })
-  if (error) throw error
-  navigateTo('/')
+
+
 }
+const { data, error } = await client.auth.signInWithPassword({
+  email: email.value,
+  password: password.value
+})
+
+if (error) {
+  if (error.message.includes("invalid email")) {
+    errorMessage.value = "Email yang anda masukan salah"
+  } else if (errorMessage.includes("incorrect password"))
+    errorMessage.value = "Password yang anda masukan salah"
+} else {
+  errorMessage.value = "Periksa lebih teliti !!!"
+}
+setTimeout(() => {
+  errorMessage.value = ""
+}, 1000)
+
+if (error) throw error
+navigateTo('/siswa')
+
 </script>
