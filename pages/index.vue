@@ -11,7 +11,7 @@
                 </NuxtLink>
             </div>
             <div class="col-sm-4">
-                <NuxtLink to="/login">
+                <NuxtLink to="/riwayat">
                     <div class="card bg2 shadow">
                         <div class="card-body">
                             <h5 class="card-title" style="opacity: none;">MELIHAT RIWAYAT POINT</h5>

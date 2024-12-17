@@ -3,4 +3,6 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   css: ["bootstrap/dist/css/bootstrap.min.css"],
   compatibilityDate: "2024-10-07",
+  modules: ["@nuxtjs/supabase"],
+  supabase: { redirect: false }
 })

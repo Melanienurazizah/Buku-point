@@ -11,24 +11,23 @@
                     <div class="my-3">
                         <select v-model="form.id_siswa" class="form-select form-select-lg mb-3 rounded-4"
                             aria-label="Large select example" style="background-color: #D9D9D9;">
-                            <option disabled selected>NAMA</option>
+                            <option disabled value="">NAMA</option>
                             <option v-for="siswa in siswa" :key="siswa.id" :value="siswa.id">{{ siswa.nama }}</option>
                         </select>
                     </div>
 
                     <div class="my-3">
-                        <select v-model="form.id_jenis_pelanggaran" class="form-select form-select-lg mb-3 rounded-4"
+                        <select v-model="selectedJenis" @change="getPelanggaran"  class="form-select form-select-lg mb-3 rounded-4"
                             aria-label="Large select example" style="background-color: #D9D9D9;">
-                            <option selected>JENIS PELANGGARAN</option>
+                            <option disabled :value="null">JENIS PELANGGARAN</option>
                             <option v-for="data in jenis" :key="data.id" :value="data.id">{{ data.nama }}</option>
                         </select>
                     </div>
                     <div class="my-3">
-                        <select v-model="form.id_pelanggaran" class="form-select form-select-lg mb-3 rounded-4"
+                        <select v-model="form.id_pelanggaran" :disabled="!selectedJenis" class="form-select form-select-lg mb-3 rounded-4"
                             aria-label="Large select example" style="background-color: #D9D9D9;">
-                            <option selected>PELANGGARAN</option>
-                            <option v-for="point in pelanggaran" :key="point.id" :value="point.id">{{ point.pelanggaran
-                                }}</option>
+                            <option disabled value="">PELANGGARAN</option>
+                            <option v-for="point in pelanggaran" :key="point.id" :value="point.id">{{ point.pelanggaran}}</option>
                         </select>
                     </div>
 
@@ -60,17 +59,19 @@ const supabase = useSupabaseClient()
 
 const siswa = ref([])
 const jenis = ref([])
+const selectedJenis = ref(null)
 const pelanggaran = ref([])
 const form = ref({
     id_siswa: "",
-    id_jenis_pelanggaran: "",
+   
     id_pelanggaran: "",
 });
 
 const kirimData = async () => {
-    // console.log(form.value)
+    console.log(form.value)
     const { error } = await supabase.from('point_siswa').insert([form.value])
-    if (!error) navigateTo(`/siswa/${form.value.id_siswa}`)
+    if (error) throw error
+    navigateTo(`/siswa/${form.value.id_siswa}`)
 }
 
 async function getSiswa() {
@@ -86,14 +87,31 @@ async function getJenis() {
 }
 
 async function getPelanggaran() {
-    const { data, error } = await supabase.from('pelanggaran').select('id, pelanggaran')
+    const { data, error } = await supabase.from('pelanggaran').select('id, pelanggaran').eq("jenis_pelanggaran", selectedJenis.value)
     if (error) throw error
     if (data) pelanggaran.value = data
 }
 
+// const getJenis = async () => {
+//     const { data, error} = await supabase
+//         .form("jenis_pelanggaran")
+//         .select("*")
+//         .order("id", { ascending: true});
+//     if (data) jenis.value = data;
+// };
+
+// const getPelanggaran = async (event) => {
+//     let id = event.target.value;
+//     form.value.jenis_pelanggaran = parseInt(id);
+//     conts {data, error} = await supabase
+//         .from("pelanggaran")
+//         .select('*, jenis_pelanggaran(id, nama)')
+//         .eq("jenis_pelanggaran",id)
+//         .order("id", {ascending: true});
+//     if (data) pelanggaran.value = data;
+// };
 onMounted(() => {
     getSiswa();
     getJenis();
-    getPelanggaran();
 })
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <div class="row pt-5 justify-content-center">
+        <div class="row mt-5 justify-content-center">
             <div class="col-1 ">
                 <div class="card" style="width: 10rem; min-height:10rem ;">
                     <div class="card-body">
@@ -14,7 +14,7 @@
                     <div v-if="!siswa">loading..</div>
                     <div class="card-body">
                         <h5 class="card-title">{{ siswa.nama }}</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">12</h6>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{ siswa.tingkat }}</h6>
                         <h1 class="card-text">{{ siswa.poin }} POIN</h1>
                     </div>
                 </div>
@@ -58,7 +58,7 @@ const id_siswa = route.params.id
 async function getSiswaById() {
     const { data, error } = await client
         .from('siswa')
-        .select(`*, kelas(nama)`)
+        .select(`*`)
         .eq('id', id_siswa)
         .single()
     if (data) {
